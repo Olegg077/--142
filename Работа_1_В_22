@@ -1,0 +1,52 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+/**
+ * @brief Вычисляет значение переменной a = sqrt(x^2 + y) - y * (sin(x + z/x))^3.
+ * @param x Значение переменной x (double).
+ * @param y Значение переменной y (double).
+ * @param z Значение переменной z (double).
+ * @return Вычисленное значение a (double).
+ */
+double calculateA(const double x, const double y, const double z);
+/**
+ * @brief Вычисляет значение переменной b = (cos(x)^2) * (x^3) - x / sqrt(z^2 + y^2).
+ * @param x Значение переменной x (double).
+ * @param y Значение переменной y (double).
+ * @param z Значение переменной z (double).
+ * @return Вычисленное значение b (double).
+ */
+double calculateB(const double x, const double y, const double z);
+
+int main() {
+    double x = -2.9;
+    double y = 15.5;
+    double z = 1.5;
+
+    // Вывод исходных данных
+    cout << "Initial data"<< endl;
+    cout << "x = " << x <<  endl;
+    cout << "y = " << y << endl;
+    cout << "z = " << z << endl;
+
+    // Вычисление и вывод результатов
+    double resultA = calculateA(x, y, z);
+    double resultB = calculateB(x, y, z);
+
+    cout << "Calculation results"<<endl;
+    cout << "a = " << resultA << endl;
+    cout << "b = " << resultB << endl;
+
+    return 0;
+}
+
+double calculateA(const double x, const double y, const double z)
+{
+    return sqrt(pow(x, 2) + y) - pow(y,2) * pow(sin(x + z / x), 3);
+}
+
+double calculateB(const double x, const double y, const double z) {
+    return pow(cos(x), 2) * pow(x, 3) - x / sqrt(pow(z, 2) + pow(y, 2));
+}
