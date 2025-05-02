@@ -1,26 +1,36 @@
-#include <iostream> 
+#include <iostream>
 using namespace std;
 
-double gramms_in_onces(double gramms, double const oncies) {
- return gramms / oncies;
+/**
+*@brief Переводит вес из граммов в унции
+*@return возвращает значение в унциях
+*/
+double gramms_in_ounces(double gramms, double const ounces) {
+    return gramms / ounces;
 }
-
+/**
+*@brief Запрашивает ввод данных с клавиатуры
+*@return возвращает значение в граммах
+*/
 double testinput() {
- double gramms;
- do {
-  cout << "Введите вес в граммах : ";
-  cin >> gramms;
-  if (gramms < 0) cout << "Данные введены некорректно! Попробуйте снова (граммы >= 0). " << endl;
-  else cout << "Ввод выполнен кореектно! " << endl;
- } while (gramms < 0);
- return gramms;
+    double gramms;
+    cout << "Введите вес в граммах: ";
+    cin >> gramms;
+    return gramms;
 }
 
 int main() {
- setlocale (LC_ALL, "ru");
- const double ounces = 28.3;
- double gramms;  
- gramms = testinput();
- cout << "Перевод из грамм в унции. " << endl;
- cout << "Вес в унциях: " << gramms_in_onces(gramms, ounces);
+    setlocale(LC_ALL, "ru");
+    const double ounces = 28.3;
+    
+    double gramms = testinput();
+    if (gramms < 0) {
+        cout << "Ошибка: вес не может быть отрицательным!" << endl;
+        return 1;
+    }
+    
+    cout << "Ввод выполнен корректно!" << endl;
+    cout << "Вес в унциях: " << gramms_in_ounces(gramms, ounces);
+    
+    return 0;
 }
