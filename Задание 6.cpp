@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <ctime>
 #include <stdlib.h>
 #include <stdio.h>
@@ -165,7 +165,7 @@ void checkN(const int n)
 size_t getSize()
 {
     cout << "Введите размер массива: ";
-    int n;
+    int n = 0; // Инициализация переменной
     cin >> n;
     checkN(n);
     return (size_t)n;
@@ -173,7 +173,7 @@ size_t getSize()
 
 int getNumber()
 {
-    int number;
+    int number = 0; // Инициализация переменной
     cin >> number;
     if (cin.fail())
     {
@@ -242,6 +242,7 @@ void printIndicesOfMultiplesOfThree(const int* arr, const int n) {
     }
     cout << endl;
 }
+
 int findPairWithSum(const int* arr, const int n, int target) {
     for (size_t i = 0; i < n - 1; i++) {
         if (arr[i] + arr[i + 1] == target) {
@@ -264,4 +265,3 @@ void fillArray(int* arr, const int n, const int min, const int max)
         }
     }
 }
-
