@@ -1,64 +1,49 @@
-﻿#include <iostream>
+#include <iostream>
 #include <cmath>
 #include <limits>
 using namespace std;
 
 /**
  * @brief Вычисляет сумму членов последовательности от 1 до n.
- * Эта функция вычисляет сумму членов последовательности (-1)^k * k^4 / k!
- * для k от 1 до n.
- * @param n Положительное целое число, определяющее количество членов для суммирования.
+ * @param n Положительное целое число.
  * @return Сумма членов последовательности как double.
  */
 double sumIntegral(const int n);
 
 /**
  * @brief Вычисляет факториал числа k.
- * Эта функция вычисляет факториал заданного числа k (k!).
- * @param k Целое число, для которого нужно вычислить факториал.
+ * @param k Целое число.
  * @return Факториал числа k как double.
  */
 double factorial(const int k);
 
 /**
  * @brief Проверяет корректность ввода значения n.
- * Эта функция запрашивает у пользователя значение n и проверяет,
- * что оно является положительным целым числом.
  * @return Положительное целое число n или -1 в случае ошибки.
  */
 int getValidN();
 
 /**
  * @brief Проверяет корректность ввода значения e.
- * Эта функция запрашивает у пользователя значение e и проверяет,
- * что оно является неотрицательным числом.
  * @return Неотрицательное число e как double.
  */
 double getValidE();
 
 /**
  * @brief Вычисляет сумму первых n членов последовательности.
- * Эта функция вычисляет сумму первых n членов последовательности
- * (-1)^k * k^4 / k!.
- * @param n Положительное целое число, определяющее количество членов для суммирования.
+ * @param n Положительное целое число.
  * @return Сумма первых n членов последовательности как double.
  */
 double sumFirstN(const int n);
 
 /**
- * @brief Вычисляет сумму членов последовательности по модулю не меньших заданного числа e.
- * Эта функция вычисляет сумму членов последовательности (-1)^k * k^4 / k!
- * для k от 1 до n, которые по модулю не меньше e.
- * @param n Положительное целое число, определяющее количество членов для проверки.
- * @param e Неотрицательное число, по модулю которого проверяются члены последовательности.
+ * @brief Вычисляет сумму членов последовательности по модулю не меньших e.
+ * @param n Положительное целое число.
+ * @param e Неотрицательное число.
  * @return Сумма членов по модулю не меньших e как double.
  */
 double sumByMagnitude(const int n, const double e);
 
-/**
- * @brief Точка входа для программы
- * @return 0
- */
 int main()
 {
     setlocale(LC_ALL, "Russian");
@@ -66,10 +51,11 @@ int main()
     int n = getValidN();
     if (n == -1)
     {
-        return 1; // Возвращаем код ошибки
+        return 1;
     }
 
-    cout << "Сумма интеграла от k=1 до " << n << " для выражения (-1)^k * k^4 / k!: " << sumIntegral(n) << endl;
+    cout << "Сумма интеграла от k=1 до " << n << " для выражения (-1)^k * k^4 / k!: " 
+         << sumIntegral(n) << endl;
 
     double e = getValidE();
     cout << "Сумма первых " << n << " членов последовательности: " << sumFirstN(n) << endl;
@@ -80,14 +66,16 @@ int main()
 
 int getValidN()
 {
-    int n;
+    int n = 0;
     cout << "Введите значение n: ";
     cin >> n;
 
     if (cin.fail() || n <= 0)
     {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << "Ошибка: n должно быть положительным числом." << endl;
-        return -1; // Возвращаем -1 для обработки ошибки
+        return -1;
     }
 
     return n;
@@ -95,20 +83,39 @@ int getValidN()
 
 double getValidE()
 {
-    double e;
+    double e = 0.0;
     cout << "Введите значение e: ";
     cin >> e;
 
     if (cin.fail() || e < 0)
     {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << "Ошибка: e должно быть неотрицательным числом." << endl;
-        exit(1); // Завершаем программу при ошибке
+        return 0.0; // Возвращаем 0 как значение по умолчанию
     }
 
     return e;
 }
 
+double factorial(const int k)
+{
+    if (k == 0 || k == 1) return 1.0;
+    
+    double result = 1.0;
+    for (int i = 2; i <= k; ++i)
+    {
+        result *= i;
+    }
+    return result;
+}
+
 double sumIntegral(const int n)
+{
+    return sumFirstN(n);
+}
+
+double sumFirstN(const int n)
 {
     double sum = 0.0;
 
@@ -121,30 +128,6 @@ double sumIntegral(const int n)
     return sum;
 }
 
-double factorial(const int k)
-{
-    if (k == 0 || k == 1) return 1.0;
-    double result = 1.0;
-    for (int i = 2; i <= k; ++i)
-    {
-        result *= i;
-    }
-    return result;
-}
-
-double sumFirstN(const int n)
-{
-    double sum = 0.0;
-
-    for (int k = 1; k <= n; ++k)
-    {
-        double term = pow(-1, k) * pow(k, 4) / factorial(k);
-        sum += term; // Суммируем все члены от 1 до n
-    }
-
-    return sum;
-}
-
 double sumByMagnitude(const int n, const double e)
 {
     double sum = 0.0;
@@ -152,7 +135,7 @@ double sumByMagnitude(const int n, const double e)
     for (int k = 1; k <= n; ++k)
     {
         double term = pow(-1, k) * pow(k, 4) / factorial(k);
-        if (fabs(term) >= e) // Проверяем, по модулю ли член больше или равен e
+        if (fabs(term) >= e)
         {
             sum += term;
         }
