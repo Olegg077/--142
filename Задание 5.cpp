@@ -102,25 +102,14 @@ double sumFirstN(const int n)
 double sumByMagnitude(const int n, const double e)
 {
     double sum = 0.0;
-    double current_term = 0.0;
-    double denominator = 1.0;
+    double current = 1.0;
+    int k = 0;
 
-    for (int k = 1; k <= n; ++k)
+    while (abs(current) >= e)
     {
-        if (k == 1)
-        {
-            current_term = -1.0;
-        }
-        else
-        {
-            current_term *= -1.0 * pow(k, 4) / (pow(k-1, 4) * k);
-        }
-        
-        if (fabs(current_term) >= e)
-        {
-            sum += current_term;
-        }
+        sum += current;
+        current = sumFirstN(n);
+        k++;
     }
-
     return sum;
 }
